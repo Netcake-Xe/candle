@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xenon64</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #0f0f1b, #1e1e2f); /* Static gradient */
+            background-attachment: fixed; /* Ensure the gradient stays fixed when scrolling */
+            color: white;
+            overflow: hidden; /* Prevent scrolling during intro animation */
+        }
+
+        /* Intro Section */
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #14142b;
+            z-index: 100;
+        }
+
+        #intro h1 {
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            color: #0ff;
+        }
+
+        #intro h1 span {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: slideIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        #intro h1 span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        #intro h1 span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        #intro h1 span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Main Content */
+        #main {
+            opacity: 0;
+            visibility: hidden; /* Initially hidden */
+            text-align: center;
+            padding: 50px 20px;
+            transition: opacity 1s ease, visibility 1s ease; /* Smooth fade-in */
+        }
+
+        /* Client Number Styling (Top Left) */
+        #client-number {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 1rem; /* Smaller font size */
+            font-weight: bold;
+            color: #0ff;
+            z-index: 110; /* Ensure it stays on top */
+        }
+
+        /* Menu Styling */
+        nav {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            border-radius: 50px; /* Rounded corners */
+            background-color: transparent;
+            position: relative; /* To position the tooltip */
+            transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #14142b;
+            background-color: #0ff; /* Highlight on hover */
+            border-color: #0ff;
+        }
+
+        /* Tooltip Styling */
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            top: 140%; /* Move tooltip below the button */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0s 0.3s;
+            z-index: 200;
+            width: 120px; /* Set a fixed width for the tooltip */
+            text-align: center; /* Center the text inside the tooltip */
+        }
+
+        nav a:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.3s ease, visibility 0s 0s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #intro h1 {
+                font-size: 2.5rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+
+            #client-number {
+                font-size: 0.9rem; /* Even smaller font for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Intro Section -->
+    <div id="intro">
+        <h1>
+            <span>N</span>
+            <span>E</span>
+            <span>T</span>
+            <span>C</span>
+            <span>A</span>
+            <span>K</span>
+            <span>E</span>
+        </h1>
+    </div>
+
+    <!-- Client Number (Top Left) -->
+    <div id="client-number">
+        Client - Xe-1.1
+    </div>
+
+    <!-- Main Content -->
+    <div id="main">
+        <h1>NETCAKE</h1>
+        <p>The one place where you can play scuffed games and not get caught, maybe</p>
+        <nav>
+            <a href="SCUFFED.html">
+                Scuffed Series
+                <span class="tooltip">A series of scuffed remakes of classic gamemodes</span>
+            </a>
+            <a href="BROKEN.html">
+                Broken Series
+                <span class="tooltip">The collection of built in flash games</span>
+            </a>
+            <a href="RUFFLE.html">
+                RUFFLE
+                <span class="tooltip">The built in RUFFLE emulator let will let you play your own flash games through the swf format</span>
+            </a>
+            <a href="FEEDBACK.html">
+                Feedback Line
+                <span class="tooltip">Share your feedback or recommendtions for games</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Script to Handle Transitions -->
+    <script>
+        setTimeout(() => {
+            // Fade out the intro
+            document.getElementById('intro').style.animation = "fadeOut 1s ease forwards";
+
+            // After the intro fades out, make the main content visible and fade it in
+            setTimeout(() => {
+                const main = document.getElementById('main');
+                main.style.visibility = "visible";  // Set visibility to visible
+                main.style.opacity = 1;  // Trigger opacity transition for fade-in effect
+            }, 1000); // 1000ms (same as the fade-out duration of the intro)
+        }, 2000); // Wait for 2 seconds before starting the fade-out of intro
+    </script>
+</body>
+</html>
